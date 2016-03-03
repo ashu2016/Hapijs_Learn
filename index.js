@@ -21,19 +21,11 @@ server.register({
 },err =>{
     server.route({
     method:'GET',
-    path:'/',
+    path:'/users/{userId}/files',
     handler:(request,reply) => {
         server.log('error','Oh No !!!!')
         server.log('info','Replying with proper data now!')
-        reply("hello hapi")
-    }
-})
-
-server.route({
-    method:'GET',
-    path:'/{name}',
-    handler:(request,reply) => {
-        reply('hello',request.params.name)
+        reply(request.params)
     }
 })
 
