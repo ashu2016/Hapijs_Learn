@@ -1,6 +1,8 @@
 'use strict'
 
 const Hapi = require('hapi')
+// Usage of Boom to mask errors from end users.
+const Boom = require('boom')
 
 const server = new Hapi.Server()
 server.connection({
@@ -21,11 +23,12 @@ server.register({
 },err =>{
     server.route({
     method:'GET',
-    path:'/users/{userId}/files',
+    path:'/',
     handler:(request,reply) => {
-        server.log('error','Oh No !!!!')
-        server.log('info','Replying with proper data now!')
-        reply(request.params)
+        // reply('Hello World')  --  here Hapi will treat response as text/xml
+        // reply({hello : 'World'})  -- Here Hapi will automatically change response type to application/json
+        // reply(require('js').createReadStream(__filename))
+           reply(Boom.notFound())
     }
 })
 
